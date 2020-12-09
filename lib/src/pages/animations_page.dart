@@ -26,6 +26,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
   AnimationController controller;
   Animation<double> rotation;
   Animation<double> opacity;
+  Animation<double> rightMove;
 
   @override
   void initState() {
@@ -37,6 +38,9 @@ class _AnimatedSquareState extends State<AnimatedSquare>
 
     opacity = Tween(begin: 0.1, end: 1.0).animate(CurvedAnimation(
         parent: controller, curve: Interval(0, 0.5, curve: Curves.easeInOut)));
+
+    rightMove = Tween(begin: 0.0, end: 160.0).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0, 0.5, curve: Curves.bounceIn)));
 
     controller.addListener(() {
       print('Status: ${controller.status}');
@@ -65,12 +69,15 @@ class _AnimatedSquareState extends State<AnimatedSquare>
       child: _Rectangle(),
       builder: (BuildContext context, Widget child) {
         print(rotation.value);
-        return Transform.rotate(
-            angle: rotation.value,
-            child: Opacity(
-              opacity: opacity.value,
-              child: child,
-            ));
+        return Transform.translate(
+          offset: Offset(rightMove.value, 0),
+          child: Transform.rotate(
+              angle: rotation.value,
+              child: Opacity(
+                opacity: opacity.value,
+                child: child,
+              )),
+        );
       },
     );
   }
