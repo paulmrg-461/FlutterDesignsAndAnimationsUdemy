@@ -35,7 +35,8 @@ class _AnimatedSquareState extends State<AnimatedSquare>
     rotation = Tween(begin: 0.0, end: 2 * math.pi).animate(
         CurvedAnimation(parent: controller, curve: Curves.bounceInOut));
 
-    opacity = Tween(begin: 0.1, end: 1.0).animate(controller);
+    opacity = Tween(begin: 0.1, end: 1.0).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0, 0.5, curve: Curves.easeInOut)));
 
     controller.addListener(() {
       print('Status: ${controller.status}');
