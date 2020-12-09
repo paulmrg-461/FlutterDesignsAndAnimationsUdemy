@@ -20,34 +20,25 @@ class __AnimatedSquareState extends State<_AnimatedSquare>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   //Animations
-  Animation<double> movementX;
-  Animation<double> movementY;
+  Animation<double> rightMovement;
+  Animation<double> upMovement;
+  Animation<double> leftMovement;
+  Animation<double> downMovement;
 
   @override
   void initState() {
     controller = new AnimationController(
         vsync: this, duration: Duration(milliseconds: 4500));
 
-    movementX = Tween(begin: 0.0, end: 160.0).animate(CurvedAnimation(
-        parent: controller, curve: Interval(0, 0.25, curve: Curves.bounceOut)));
-
-    movementY = Tween(begin: 0.0, end: 0.0).animate(controller);
+    rightMovement = _tweenAnimation(0.0, 160.0, 0, 0.25);
+    upMovement = _tweenAnimation(0.0, -160.0, 0.25, 0.5);
+    leftMovement = _tweenAnimation(0.0, -160.0, 0.5, 0.75);
+    downMovement = _tweenAnimation(0.0, 160.0, 0.75, 1.0);
 
     controller.addListener(() {
-      if (controller.value >= 0.25) {
-        movementY = _tweenAnimation(0.0, -160.0, 0.25, 0.5);
-        /* movementY = Tween(begin: 0.0, end: -160.0).animate(CurvedAnimation(
-            parent: controller,
-            curve: Interval(0.25, 0.5, curve: Curves.bounceOut))); */
-      }
-
-      if (controller.value >= 0.5) {
-        movementX = _tweenAnimation(160.0, 0.0, 0.5, 0.75);
-      }
-
-      if (controller.value >= 0.75) {
-        movementY = _tweenAnimation(-160.0, 0.0, 0.75, 1.0);
-      }
+      controller.status == AnimationStatus.completed
+          ? controller.reset()
+          : print("The animation is in process");
     });
 
     super.initState();
@@ -67,7 +58,8 @@ class __AnimatedSquareState extends State<_AnimatedSquare>
       child: _Rectangle(),
       builder: (BuildContext context, Widget child) {
         return Transform.translate(
-          offset: Offset(movementX.value, movementY.value),
+          offset: Offset(rightMovement.value + leftMovement.value,
+              upMovement.value + downMovement.value),
           child: child,
         );
       },
