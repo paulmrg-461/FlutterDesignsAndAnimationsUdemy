@@ -25,6 +25,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> rotation;
+  Animation<double> opacity;
 
   @override
   void initState() {
@@ -34,11 +35,13 @@ class _AnimatedSquareState extends State<AnimatedSquare>
     rotation = Tween(begin: 0.0, end: 2 * math.pi).animate(
         CurvedAnimation(parent: controller, curve: Curves.bounceInOut));
 
+    opacity = Tween(begin: 0.1, end: 1.0).animate(controller);
+
     controller.addListener(() {
       print('Status: ${controller.status}');
       controller.status == AnimationStatus.completed
-          //? controller.reverse()
-          ? controller.reset()
+          ? controller.reverse()
+          //? controller.reset()
           : print("Holi, soy Vítor Toli");
     });
 
@@ -58,10 +61,15 @@ class _AnimatedSquareState extends State<AnimatedSquare>
 
     return AnimatedBuilder(
       animation: controller,
-      //child: _Rectangle(),
+      child: _Rectangle(),
       builder: (BuildContext context, Widget child) {
         print(rotation.value);
-        return Transform.rotate(angle: rotation.value, child: _Rectangle());
+        return Transform.rotate(
+            angle: rotation.value,
+            child: Opacity(
+              opacity: opacity.value,
+              child: child,
+            ));
       },
     );
   }
