@@ -27,6 +27,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
   Animation<double> rotation;
   Animation<double> opacity;
   Animation<double> rightMove;
+  Animation<double> enlarge;
 
   @override
   void initState() {
@@ -40,6 +41,9 @@ class _AnimatedSquareState extends State<AnimatedSquare>
         parent: controller, curve: Interval(0, 0.5, curve: Curves.easeInOut)));
 
     rightMove = Tween(begin: 0.0, end: 160.0).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0, 0.5, curve: Curves.bounceIn)));
+
+    enlarge = Tween(begin: 0.5, end: 1.0).animate(CurvedAnimation(
         parent: controller, curve: Interval(0, 0.5, curve: Curves.bounceIn)));
 
     controller.addListener(() {
@@ -75,7 +79,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
               angle: rotation.value,
               child: Opacity(
                 opacity: opacity.value,
-                child: child,
+                child: Transform.scale(scale: enlarge.value, child: child),
               )),
         );
       },
