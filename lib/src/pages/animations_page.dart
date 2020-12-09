@@ -31,12 +31,14 @@ class _AnimatedSquareState extends State<AnimatedSquare>
     controller = new AnimationController(
         vsync: this, duration: Duration(milliseconds: 4000));
 
-    rotation = Tween(begin: 0.0, end: 2 * math.pi).animate(controller);
+    rotation = Tween(begin: 0.0, end: 2 * math.pi).animate(
+        CurvedAnimation(parent: controller, curve: Curves.bounceInOut));
 
     controller.addListener(() {
       print('Status: ${controller.status}');
       controller.status == AnimationStatus.completed
-          ? controller.reverse()
+          //? controller.reverse()
+          ? controller.reset()
           : print("Holi, soy Vítor Toli");
     });
 
