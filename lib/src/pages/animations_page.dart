@@ -26,6 +26,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
   AnimationController controller;
   Animation<double> rotation;
   Animation<double> opacity;
+  Animation<double> outOpacity;
   Animation<double> rightMove;
   Animation<double> enlarge;
 
@@ -37,8 +38,12 @@ class _AnimatedSquareState extends State<AnimatedSquare>
     rotation = Tween(begin: 0.0, end: 2 * math.pi).animate(
         CurvedAnimation(parent: controller, curve: Curves.bounceInOut));
 
-    opacity = Tween(begin: 0.1, end: 1.0).animate(CurvedAnimation(
+    opacity = Tween(begin: 0.75, end: 1.0).animate(CurvedAnimation(
         parent: controller, curve: Interval(0, 0.5, curve: Curves.easeInOut)));
+
+    outOpacity = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        parent: controller,
+        curve: Interval(0.75, 1.0, curve: Curves.easeInOut)));
 
     rightMove = Tween(begin: 0.0, end: 160.0).animate(CurvedAnimation(
         parent: controller, curve: Interval(0, 0.5, curve: Curves.bounceIn)));
@@ -47,7 +52,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
         parent: controller, curve: Interval(0, 0.5, curve: Curves.bounceIn)));
 
     controller.addListener(() {
-      print('Status: ${controller.status}');
+      //print('Status: ${controller.status}');
       controller.status == AnimationStatus.completed
           ? controller.reverse()
           //? controller.reset()
@@ -72,13 +77,14 @@ class _AnimatedSquareState extends State<AnimatedSquare>
       animation: controller,
       child: _Rectangle(),
       builder: (BuildContext context, Widget child) {
-        print(rotation.value);
+        //print('Opacity: ${opacity.status}');
+
         return Transform.translate(
           offset: Offset(rightMove.value, 0),
           child: Transform.rotate(
               angle: rotation.value,
               child: Opacity(
-                opacity: opacity.value,
+                opacity: opacity.value - outOpacity.value,
                 child: Transform.scale(scale: enlarge.value, child: child),
               )),
         );
