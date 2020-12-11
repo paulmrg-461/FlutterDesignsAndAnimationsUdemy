@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 
 class RadialProgress extends StatefulWidget {
   double percentage;
+  Color color;
 
-  RadialProgress({Key key, @required this.percentage});
+  RadialProgress(
+      {Key key, @required this.percentage, this.color = Colors.blue});
   @override
   _RadialProgressState createState() => _RadialProgressState();
 }
@@ -54,7 +56,8 @@ class _RadialProgressState extends State<RadialProgress>
               child: CustomPaint(
                 painter: _MyRadialProgress(
                     percentage: (widget.percentage - animationDiference) +
-                        (animationDiference * controller.value)),
+                        (animationDiference * controller.value),
+                    color: widget.color),
               ));
         });
   }
@@ -62,8 +65,9 @@ class _RadialProgressState extends State<RadialProgress>
 
 class _MyRadialProgress extends CustomPainter {
   final percentage;
+  final Color color;
 
-  _MyRadialProgress({@required this.percentage});
+  _MyRadialProgress({@required this.percentage, @required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -80,7 +84,7 @@ class _MyRadialProgress extends CustomPainter {
     //Arco
     final arcPaint = new Paint()
       ..strokeWidth = 10
-      ..color = Colors.blue
+      ..color = color
       ..style = PaintingStyle.stroke;
 
     double arcAngle = 2 * pi * (percentage / 100);
