@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -10,16 +11,52 @@ class RadialProgress extends StatefulWidget {
   _RadialProgressState createState() => _RadialProgressState();
 }
 
-class _RadialProgressState extends State<RadialProgress> {
+class _RadialProgressState extends State<RadialProgress>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  double lastPercentage;
+
+  @override
+  void initState() {
+    lastPercentage = widget.percentage;
+
+    controller = new AnimationController(
+        vsync: this, duration: Duration(milliseconds: 400));
+
+    /* controller.addListener(() => this.setState(() {
+          widget.percentage =
+              lerpDouble(widget.percentage, lastPercentage, controller.value);
+        })); */
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.all(10.0),
-        width: double.infinity,
-        height: double.infinity,
-        child: CustomPaint(
-          painter: _MyRadialProgress(percentage: widget.percentage),
-        ));
+    controller.forward(from: 0.0);
+
+    final animationDiference = widget.percentage - lastPercentage;
+    lastPercentage = widget.percentage;
+
+    return AnimatedBuilder(
+        animation: controller,
+        builder: (BuildContext context, Widget child) {
+          return Container(
+              padding: EdgeInsets.all(10.0),
+              width: double.infinity,
+              height: double.infinity,
+              child: CustomPaint(
+                painter: _MyRadialProgress(
+                    percentage: (widget.percentage - animationDiference) +
+                        (animationDiference * controller.value)),
+              ));
+        });
   }
 }
 
