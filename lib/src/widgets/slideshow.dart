@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:app_designs/src/models/slider_model.dart';
 
@@ -39,9 +38,14 @@ class _Dots extends StatelessWidget {
   final int slidesCount;
   final Color primaryColor;
   final Color secondaryColor;
+
   _Dots(this.slidesCount, this.primaryColor, this.secondaryColor);
   @override
   Widget build(BuildContext context) {
+    //final sliderModelProvider = Provider.of<SliderModel>(context);
+    Provider.of<SliderModel>(context).primaryColor = this.primaryColor;
+    Provider.of<SliderModel>(context).secondaryColor = this.secondaryColor;
+    //sliderModelProvider.secondaryColor = this.secondaryColor;
     return Container(
       width: double.infinity,
       height: 70.0,
@@ -51,8 +55,6 @@ class _Dots extends StatelessWidget {
               this.slidesCount,
               (index) => _Dot(
                     index: index,
-                    primaryColor: this.primaryColor,
-                    secondaryColor: this.secondaryColor,
                   ))),
     );
   }
@@ -60,22 +62,21 @@ class _Dots extends StatelessWidget {
 
 class _Dot extends StatelessWidget {
   final int index;
-  final Color primaryColor;
-  final Color secondaryColor;
-  _Dot({this.index, this.primaryColor, this.secondaryColor});
+  _Dot({this.index});
 
   @override
   Widget build(BuildContext context) {
-    final pageViewIndex = Provider.of<SliderModel>(context).currentPage;
+    final sliderModelProvider = Provider.of<SliderModel>(context);
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       margin: EdgeInsets.symmetric(horizontal: 5.0),
       width: 12.0,
       height: 12.0,
       decoration: BoxDecoration(
-          color: (pageViewIndex >= index - 0.5 && pageViewIndex < index + 0.5)
-              ? primaryColor
-              : secondaryColor,
+          color: (sliderModelProvider.currentPage >= index - 0.5 &&
+                  sliderModelProvider.currentPage < index + 0.5)
+              ? sliderModelProvider.primaryColor
+              : sliderModelProvider.secondaryColor,
           shape: BoxShape.circle),
     );
   }

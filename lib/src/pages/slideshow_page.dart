@@ -1,3 +1,4 @@
+import 'package:app_designs/src/models/slider_model.dart';
 import 'package:app_designs/src/widgets/slideshow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
