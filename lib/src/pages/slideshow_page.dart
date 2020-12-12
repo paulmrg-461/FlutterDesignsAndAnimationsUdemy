@@ -1,14 +1,19 @@
+import 'package:app_designs/src/models/slider_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class SlideshowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Column(
-        children: [Expanded(child: _Slides()), _Dots()],
-      )),
+    return ChangeNotifierProvider(
+      create: (_) => new SliderModel(),
+      child: Scaffold(
+        body: Center(
+            child: Column(
+          children: [Expanded(child: _Slides()), _Dots()],
+        )),
+      ),
     );
   }
 }
@@ -22,9 +27,9 @@ class _Dots extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _Dot(0),
-          _Dot(1),
-          _Dot(2),
+          _Dot(index: 0),
+          _Dot(index: 1),
+          _Dot(index: 2),
         ],
       ),
     );
@@ -33,15 +38,20 @@ class _Dots extends StatelessWidget {
 
 class _Dot extends StatelessWidget {
   final int index;
-  _Dot(this.index);
+  _Dot({
+    this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final pageViewIndex = Provider.of<SliderModel>(context).currentPage;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5.0),
       width: 12.0,
       height: 12.0,
-      decoration: BoxDecoration(color: Colors.grey, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+          color: pageViewIndex == index ? Colors.blueAccent : Colors.grey,
+          shape: BoxShape.circle),
     );
   }
 }
@@ -57,8 +67,11 @@ class __SlidesState extends State<_Slides> {
   @override
   void initState() {
     super.initState();
-    pageViewController
-        .addListener(() => print('Current page: ${pageViewController.page}'));
+    pageViewController.addListener(() {
+      //print('Current page: ${pageViewController.page}');
+      Provider.of<SliderModel>(context, listen: false).currentPage =
+          pageViewController.page;
+    });
   }
 
   @override
