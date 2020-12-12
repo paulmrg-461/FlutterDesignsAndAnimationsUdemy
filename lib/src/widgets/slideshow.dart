@@ -6,12 +6,16 @@ class Slideshow extends StatelessWidget {
   final bool dotsPositionUp;
   final Color primaryColor;
   final Color secondaryColor;
+  final double dotPrimarySize;
+  final double dotSecondarySize;
 
   Slideshow(
       {@required this.slides,
       this.dotsPositionUp = false,
       this.primaryColor = Colors.blue,
-      this.secondaryColor = Colors.grey});
+      this.secondaryColor = Colors.grey,
+      this.dotPrimarySize = 12.0,
+      this.dotSecondarySize = 12.0});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,10 @@ class Slideshow extends StatelessWidget {
                 this.primaryColor;
             Provider.of<_SlideshowModel>(context).secondaryColor =
                 this.secondaryColor;
+            Provider.of<_SlideshowModel>(context).dotPrimarySize =
+                this.dotPrimarySize;
+            Provider.of<_SlideshowModel>(context).dotSecondarySize =
+                this.dotSecondarySize;
             return _CreateSlideshowStructure(
                 dotsPositionUp: dotsPositionUp, slides: slides);
           },
@@ -82,14 +90,21 @@ class _Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sliderModelProvider = Provider.of<_SlideshowModel>(context);
+    final bool isCurrentPage =
+        (sliderModelProvider.currentPage >= index - 0.5 &&
+                sliderModelProvider.currentPage < index + 0.5)
+            ? true
+            : false;
+    final double dotSize = isCurrentPage
+        ? sliderModelProvider.dotPrimarySize
+        : sliderModelProvider.dotSecondarySize;
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       margin: EdgeInsets.symmetric(horizontal: 5.0),
-      width: 12.0,
-      height: 12.0,
+      width: dotSize,
+      height: dotSize,
       decoration: BoxDecoration(
-          color: (sliderModelProvider.currentPage >= index - 0.5 &&
-                  sliderModelProvider.currentPage < index + 0.5)
+          color: isCurrentPage
               ? sliderModelProvider.primaryColor
               : sliderModelProvider.secondaryColor,
           shape: BoxShape.circle),
@@ -153,6 +168,8 @@ class _SlideshowModel with ChangeNotifier {
   double _currentPage = 0;
   Color _primaryColor = Colors.blue;
   Color _secondaryColor = Colors.grey;
+  double _dotPrimarySize = 12.0;
+  double _dotSecondarySize = 12.0;
 
   double get currentPage => this._currentPage;
   set currentPage(double currentPage) {
@@ -169,6 +186,18 @@ class _SlideshowModel with ChangeNotifier {
   Color get secondaryColor => this._secondaryColor;
   set secondaryColor(Color secondaryColor) {
     this._secondaryColor = secondaryColor;
+    notifyListeners();
+  }
+
+  double get dotPrimarySize => this._dotPrimarySize;
+  set dotPrimarySize(double dotPrimarySize) {
+    this._dotPrimarySize = dotPrimarySize;
+    notifyListeners();
+  }
+
+  double get dotSecondarySize => this._dotSecondarySize;
+  set dotSecondarySize(double dotSecondarySize) {
+    this._dotSecondarySize = dotSecondarySize;
     notifyListeners();
   }
 }
