@@ -13,26 +13,30 @@ class Slideshow extends StatelessWidget {
       create: (_) => new SliderModel(),
       child: Center(
           child: Column(
-        children: [Expanded(child: _Slides(this.slides)), _Dots()],
+        children: [
+          Expanded(child: _Slides(this.slides)),
+          _Dots(this.slides.length)
+        ],
       )),
     );
   }
 }
 
 class _Dots extends StatelessWidget {
+  final int slidesCount;
+  _Dots(this.slidesCount);
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 70.0,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _Dot(index: 0),
-          _Dot(index: 1),
-          _Dot(index: 2),
-        ],
-      ),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+              this.slidesCount,
+              (index) => _Dot(
+                    index: index,
+                  ))),
     );
   }
 }

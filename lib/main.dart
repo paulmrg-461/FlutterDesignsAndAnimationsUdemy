@@ -1,4 +1,3 @@
-import 'package:app_designs/src/pages/circular_graphics_page.dart';
 import 'package:app_designs/src/pages/slideshow_page.dart';
 import 'package:flutter/material.dart';
 
