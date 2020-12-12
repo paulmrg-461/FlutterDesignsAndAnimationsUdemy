@@ -6,14 +6,18 @@ class SlideshowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.blue,
         body: Slideshow(
-      slides: [
-        SvgPicture.asset('assets/images/slide-1.svg'),
-        SvgPicture.asset('assets/images/slide-2.svg'),
-        SvgPicture.asset('assets/images/slide-3.svg'),
-        SvgPicture.asset('assets/images/slide-4.svg'),
-        SvgPicture.asset('assets/images/slide-5.svg'),
-      ],
-    ));
+          //dotsPositionUp: true,
+          primaryColor: Colors.deepPurple,
+          secondaryColor: Colors.white,
+          slides: [
+            SvgPicture.asset('assets/images/slide-1.svg'),
+            SvgPicture.asset('assets/images/slide-2.svg'),
+            SvgPicture.asset('assets/images/slide-3.svg'),
+            SvgPicture.asset('assets/images/slide-4.svg'),
+            SvgPicture.asset('assets/images/slide-5.svg'),
+          ],
+        ));
   }
 }
