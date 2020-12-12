@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:app_designs/src/models/slider_model.dart';
 
 class Slideshow extends StatelessWidget {
   final List<Widget> slides;
@@ -17,35 +16,51 @@ class Slideshow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => new SliderModel(),
+      create: (_) => new _SlideshowModel(),
       child: SafeArea(
-        child: Center(
-            child: Column(
-          children: [
-            if (this.dotsPositionUp)
-              _Dots(this.slides.length, this.primaryColor, this.secondaryColor),
-            Expanded(child: _Slides(this.slides)),
-            if (!this.dotsPositionUp)
-              _Dots(this.slides.length, this.primaryColor, this.secondaryColor)
-          ],
+        child: Center(child: Builder(
+          builder: (BuildContext context) {
+            Provider.of<_SlideshowModel>(context).primaryColor =
+                this.primaryColor;
+            Provider.of<_SlideshowModel>(context).secondaryColor =
+                this.secondaryColor;
+            return _CreateSlideshowStructure(
+                dotsPositionUp: dotsPositionUp, slides: slides);
+          },
         )),
       ),
     );
   }
 }
 
-class _Dots extends StatelessWidget {
-  final int slidesCount;
-  final Color primaryColor;
-  final Color secondaryColor;
+class _CreateSlideshowStructure extends StatelessWidget {
+  const _CreateSlideshowStructure({
+    Key key,
+    @required this.dotsPositionUp,
+    @required this.slides,
+  }) : super(key: key);
 
-  _Dots(this.slidesCount, this.primaryColor, this.secondaryColor);
+  final bool dotsPositionUp;
+  final List<Widget> slides;
+
   @override
   Widget build(BuildContext context) {
-    //final sliderModelProvider = Provider.of<SliderModel>(context);
-    Provider.of<SliderModel>(context).primaryColor = this.primaryColor;
-    Provider.of<SliderModel>(context).secondaryColor = this.secondaryColor;
-    //sliderModelProvider.secondaryColor = this.secondaryColor;
+    return Column(
+      children: [
+        if (this.dotsPositionUp) _Dots(this.slides.length),
+        Expanded(child: _Slides(this.slides)),
+        if (!this.dotsPositionUp) _Dots(this.slides.length)
+      ],
+    );
+  }
+}
+
+class _Dots extends StatelessWidget {
+  final int slidesCount;
+
+  _Dots(this.slidesCount);
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 70.0,
@@ -66,7 +81,7 @@ class _Dot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sliderModelProvider = Provider.of<SliderModel>(context);
+    final sliderModelProvider = Provider.of<_SlideshowModel>(context);
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       margin: EdgeInsets.symmetric(horizontal: 5.0),
@@ -97,7 +112,7 @@ class __SlidesState extends State<_Slides> {
   void initState() {
     super.initState();
     pageViewController.addListener(() {
-      Provider.of<SliderModel>(context, listen: false).currentPage =
+      Provider.of<_SlideshowModel>(context, listen: false).currentPage =
           pageViewController.page;
     });
   }
@@ -131,5 +146,29 @@ class _Slide extends StatelessWidget {
       padding: EdgeInsets.all(30.0),
       child: slide,
     );
+  }
+}
+
+class _SlideshowModel with ChangeNotifier {
+  double _currentPage = 0;
+  Color _primaryColor = Colors.blue;
+  Color _secondaryColor = Colors.grey;
+
+  double get currentPage => this._currentPage;
+  set currentPage(double currentPage) {
+    this._currentPage = currentPage;
+    notifyListeners();
+  }
+
+  Color get primaryColor => this._primaryColor;
+  set primaryColor(Color primaryColor) {
+    this._primaryColor = primaryColor;
+    notifyListeners();
+  }
+
+  Color get secondaryColor => this._secondaryColor;
+  set secondaryColor(Color secondaryColor) {
+    this._secondaryColor = secondaryColor;
+    notifyListeners();
   }
 }
