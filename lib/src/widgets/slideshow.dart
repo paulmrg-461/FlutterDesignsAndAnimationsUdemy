@@ -180,24 +180,20 @@ class _SlideshowModel with ChangeNotifier {
   Color get primaryColor => this._primaryColor;
   set primaryColor(Color primaryColor) {
     this._primaryColor = primaryColor;
-    notifyListeners();
   }
 
   Color get secondaryColor => this._secondaryColor;
   set secondaryColor(Color secondaryColor) {
     this._secondaryColor = secondaryColor;
-    notifyListeners();
   }
 
   double get dotPrimarySize => this._dotPrimarySize;
   set dotPrimarySize(double dotPrimarySize) {
     this._dotPrimarySize = dotPrimarySize;
-    notifyListeners();
   }
 
   double get dotSecondarySize => this._dotSecondarySize;
   set dotSecondarySize(double dotSecondarySize) {
     this._dotSecondarySize = dotSecondarySize;
-    notifyListeners();
   }
 }
