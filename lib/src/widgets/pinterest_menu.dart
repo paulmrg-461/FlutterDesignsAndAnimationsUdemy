@@ -23,13 +23,12 @@ class PinterestMenu extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: ChangeNotifierProvider(
+    return ChangeNotifierProvider(
       create: (_) => new _MenuModel(),
       child: _PinterestMenuBackground(
         child: _MenuItems(items),
       ),
-    ));
+    );
   }
 }
 
