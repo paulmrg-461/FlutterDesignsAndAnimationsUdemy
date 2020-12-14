@@ -19,15 +19,23 @@ class PinterestMenu extends StatelessWidget {
     PinterestButton(
         icon: Icons.supervised_user_circle,
         onPressed: () => print('Icon user circle...')),
-    PinterestButton(
-        icon: Icons.supervised_user_circle,
-        onPressed: () => print('Icon user circle...')),
   ];
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Container(
+        child: _PinterestMenuBackground(
       child: _MenuItems(items),
+    ));
+  }
+}
+
+class _PinterestMenuBackground extends StatelessWidget {
+  final Widget child;
+  _PinterestMenuBackground({@required this.child});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: child,
       width: 250.0,
       height: 60.0,
       decoration: BoxDecoration(
@@ -40,7 +48,7 @@ class PinterestMenu extends StatelessWidget {
                 blurRadius: 10,
                 spreadRadius: -5)
           ]),
-    ));
+    );
   }
 }
 
@@ -65,8 +73,16 @@ class _PinterestMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Icon(item.icon),
+    return GestureDetector(
+      onTap: item.onPressed,
+      behavior: HitTestBehavior.translucent,
+      child: Container(
+        child: Icon(
+          item.icon,
+          size: 26.0,
+          color: Colors.blueGrey,
+        ),
+      ),
     );
   }
 }
