@@ -10,7 +10,14 @@ class PinterestButton {
 
 class PinterestMenu extends StatelessWidget {
   final bool menuIsActive;
-  PinterestMenu({this.menuIsActive = true});
+  final Color menuBackgroundColor;
+  final Color selectedItemColor;
+  final Color unselectedItemColor;
+  PinterestMenu(
+      {this.menuIsActive = true,
+      this.menuBackgroundColor = Colors.white,
+      this.selectedItemColor = Colors.blue,
+      this.unselectedItemColor = Colors.blueGrey});
 
   final List<PinterestButton> items = [
     PinterestButton(
@@ -28,12 +35,23 @@ class PinterestMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => new _MenuModel(),
-      child: AnimatedOpacity(
-        duration: Duration(milliseconds: 300),
-        opacity: menuIsActive ? 1 : 0,
-        child: _PinterestMenuBackground(
-          child: _MenuItems(items),
-        ),
+      child: Builder(
+        builder: (BuildContext context) {
+          Provider.of<_MenuModel>(context).menuBackgroundColor =
+              this.menuBackgroundColor;
+          Provider.of<_MenuModel>(context).selectedItemColor =
+              this.selectedItemColor;
+          Provider.of<_MenuModel>(context).unselectedItemColor =
+              this.unselectedItemColor;
+
+          return AnimatedOpacity(
+            duration: Duration(milliseconds: 300),
+            opacity: menuIsActive ? 1 : 0,
+            child: _PinterestMenuBackground(
+              child: _MenuItems(items),
+            ),
+          );
+        },
       ),
     );
   }
@@ -44,12 +62,13 @@ class _PinterestMenuBackground extends StatelessWidget {
   _PinterestMenuBackground({@required this.child});
   @override
   Widget build(BuildContext context) {
+    final menuModelProvider = Provider.of<_MenuModel>(context);
     return Container(
       child: child,
       width: 250.0,
       height: 60.0,
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: menuModelProvider._menuBackgroundColor,
           borderRadius: BorderRadius.all(Radius.circular(100)),
           boxShadow: <BoxShadow>[
             BoxShadow(
@@ -83,8 +102,9 @@ class _PinterestMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedItem = Provider.of<_MenuModel>(context).selectedItem;
-    final bool isSelected = selectedItem == index ? true : false;
+    final menuModelProvider = Provider.of<_MenuModel>(context);
+    final bool isSelected =
+        menuModelProvider.selectedItem == index ? true : false;
 
     return GestureDetector(
       onTap: () {
@@ -96,7 +116,9 @@ class _PinterestMenuButton extends StatelessWidget {
         child: Icon(
           item.icon,
           size: isSelected ? 34 : 26,
-          color: isSelected ? Colors.deepPurple : Colors.blueGrey,
+          color: isSelected
+              ? menuModelProvider.selectedItemColor
+              : menuModelProvider.unselectedItemColor,
         ),
       ),
     );
@@ -105,10 +127,31 @@ class _PinterestMenuButton extends StatelessWidget {
 
 class _MenuModel with ChangeNotifier {
   int _selectedItem = 0;
+  Color _selectedItemColor = Colors.black;
+  Color _unselectedItemColor = Colors.blueGrey;
+  Color _menuBackgroundColor = Colors.white;
 
   int get selectedItem => this._selectedItem;
   set selectedItem(int selectedItem) {
     this._selectedItem = selectedItem;
     notifyListeners();
+  }
+
+  Color get selectedItemColor => this._selectedItemColor;
+  set selectedItemColor(Color selectedItemPrimaryColor) {
+    this._selectedItemColor = selectedItemPrimaryColor;
+    //notifyListeners();
+  }
+
+  Color get unselectedItemColor => this._unselectedItemColor;
+  set unselectedItemColor(Color selectedItemSecondaryColor) {
+    this._unselectedItemColor = selectedItemSecondaryColor;
+    //notifyListeners();
+  }
+
+  Color get menuBackgroundColor => this._menuBackgroundColor;
+  set menuBackgroundColor(Color menuBackgroundColor) {
+    this._menuBackgroundColor = menuBackgroundColor;
+    //notifyListeners();
   }
 }

@@ -29,6 +29,9 @@ class _PinterestMenuLocation extends StatelessWidget {
             child: Align(
                 child: PinterestMenu(
               menuIsActive: menuIsActiveProvider,
+              //menuBackgroundColor: Colors.deepPurple,
+              selectedItemColor: Colors.deepOrange,
+              unselectedItemColor: Colors.blueGrey,
             ))));
   }
 }
@@ -51,7 +54,7 @@ class _PinterestGridState extends State<PinterestGrid> {
           ? print('Hide menu')
           : print('Show menu');
       lastScroll = controller.offset; */
-      if (controller.offset > lastScroll) {
+      if (controller.offset > lastScroll && controller.offset > 150.0) {
         Provider.of<_MenuModel>(context, listen: false).menuIsActive = false;
       } else {
         Provider.of<_MenuModel>(context, listen: false).menuIsActive = true;
