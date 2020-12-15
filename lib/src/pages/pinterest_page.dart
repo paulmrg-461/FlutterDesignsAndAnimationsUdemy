@@ -1,15 +1,17 @@
 import 'package:app_designs/src/widgets/pinterest_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 
 class PinterestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //body: PinterestGrid(),
-      //body: PinterestMenu(),
-      body: Stack(
-        children: [PinterestGrid(), _PinterestMenuLocation()],
+    return ChangeNotifierProvider(
+      create: (_) => new _MenuModel(),
+      child: Scaffold(
+        body: Stack(
+          children: [PinterestGrid(), _PinterestMenuLocation()],
+        ),
       ),
     );
   }
@@ -18,11 +20,16 @@ class PinterestPage extends StatelessWidget {
 class _PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final menuIsActiveProvider = Provider.of<_MenuModel>(context)._menuIsActive;
     final screenSize = MediaQuery.of(context).size;
     return Positioned(
         bottom: 30.0,
         child: Container(
-            width: screenSize.width, child: Align(child: PinterestMenu())));
+            width: screenSize.width,
+            child: Align(
+                child: PinterestMenu(
+              menuIsActive: menuIsActiveProvider,
+            ))));
   }
 }
 
@@ -35,6 +42,7 @@ class _PinterestGridState extends State<PinterestGrid> {
   final List<int> items = List.generate(200, (i) => i);
   ScrollController controller = new ScrollController();
   double lastScroll = 0;
+  final providerMenuIsActive = true;
 
   @override
   void initState() {
@@ -44,9 +52,9 @@ class _PinterestGridState extends State<PinterestGrid> {
           : print('Show menu');
       lastScroll = controller.offset; */
       if (controller.offset > lastScroll) {
-        print('Hide menu');
+        Provider.of<_MenuModel>(context, listen: false).menuIsActive = false;
       } else {
-        print('Show menu');
+        Provider.of<_MenuModel>(context, listen: false).menuIsActive = true;
       }
       lastScroll = controller.offset;
     });
@@ -92,5 +100,15 @@ class _PinterestItem extends StatelessWidget {
             child: new Text('$index'),
           ),
         ));
+  }
+}
+
+class _MenuModel with ChangeNotifier {
+  bool _menuIsActive = true;
+
+  bool get menuIsActive => this._menuIsActive;
+  set menuIsActive(bool menuIsActive) {
+    this._menuIsActive = menuIsActive;
+    notifyListeners();
   }
 }
