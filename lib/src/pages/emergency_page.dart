@@ -7,8 +7,32 @@ class EmergencyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: FatButton(),
+      body: Column(
+        children: [
+          _HeaderWidget(),
+          SizedBox(
+            height: 12.0,
+          ),
+          FatButton(
+            icon: FontAwesomeIcons.carCrash,
+            title: 'Motor Accident',
+            onPressed: () => print('Hola amiguis'),
+            gradientColor1: Color(0xff6989F5),
+            gradientColor2: Color(0xff906EF5),
+          ),
+          FatButton(
+            icon: FontAwesomeIcons.apple,
+            title: 'Apple Tola',
+            onPressed: () => print('Hola amiguis'),
+            gradientColor1: Color(0xff388E3C),
+            gradientColor2: Color(0xff4CAF50),
+          ),
+          FatButton(
+            icon: FontAwesomeIcons.angry,
+            title: 'Los voy a matar a todos',
+            onPressed: () => print('Hola amiguis'),
+          ),
+        ],
       ),
     );
   }
