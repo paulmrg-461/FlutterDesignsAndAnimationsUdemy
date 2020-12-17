@@ -340,8 +340,8 @@ class GradientWaveHeader extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: double.infinity,
           width: double.infinity,
+          height: 300.0,
           //color: Color(0xff615AAB),
           child: CustomPaint(
             painter: _GradientWaveHeaderPainter(
@@ -399,11 +399,11 @@ class _GradientWaveHeaderPainter extends CustomPainter {
 
     final path = Path();
     //Draw with the path and paint
-    path.lineTo(0, size.height * 0.3);
-    path.quadraticBezierTo(size.width * 0.25, size.height * 0.35,
-        size.width * 0.5, size.height * 0.3);
+    path.lineTo(0, size.height * 0.85);
     path.quadraticBezierTo(
-        size.width * 0.75, size.height * 0.25, size.width, size.height * 0.3);
+        size.width * 0.25, size.height, size.width * 0.5, size.height * 0.85);
+    path.quadraticBezierTo(
+        size.width * 0.75, size.height * 0.7, size.width, size.height * 0.85);
     path.lineTo(size.width, 0);
     //path.lineTo(size.width, size.height * 0.3);
     canvas.drawShadow(path, Colors.grey[900], 3.0, false);
