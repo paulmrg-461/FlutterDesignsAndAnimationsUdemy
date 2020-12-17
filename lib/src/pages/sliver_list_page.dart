@@ -1,3 +1,4 @@
+import 'package:app_designs/src/widgets/headers.dart';
 import 'package:flutter/material.dart';
 
 class SliverListPage extends StatelessWidget {
@@ -19,20 +20,67 @@ class _MainScroll extends StatelessWidget {
     _ListItem('Pink', Colors.pink),
   ];
 
+  final double maxHeight = 280;
+  final double minHeight = 130;
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
-        SliverAppBar(
+        SliverPersistentHeader(
           floating: true,
-          backgroundColor: Colors.deepPurple,
-          title: Text('Hola amiguis'),
+          delegate: _SliverCustomHeaderDelegate(
+              minHeight: this.minHeight,
+              maxHeight: this.maxHeight,
+              child: GradientWaveHeader(
+                title: 'To Do \nList',
+                headerHeight: this.maxHeight,
+                fontColor: Colors.white,
+                fontSize: 36.0,
+              )),
         ),
         SliverList(
-          delegate: SliverChildListDelegate(items),
+          delegate: SliverChildListDelegate([
+            ...items,
+            SizedBox(
+              height: 22.0,
+            )
+          ]),
         )
       ],
     );
+  }
+}
+
+class _SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  _SliverCustomHeaderDelegate(
+      {@required this.minHeight,
+      @required this.maxHeight,
+      @required this.child});
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(
+      child: child,
+    );
+  }
+
+  @override
+  double get maxExtent => (minHeight > maxHeight) ? minHeight : maxHeight;
+
+  @override
+  double get minExtent => (maxHeight > minHeight) ? minHeight : maxHeight;
+
+  @override
+  bool shouldRebuild(_SliverCustomHeaderDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        maxHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }
 
