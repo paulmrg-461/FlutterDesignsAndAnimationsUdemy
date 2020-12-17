@@ -50,7 +50,7 @@ class _FatButtonBackground extends StatelessWidget {
       ),
       width: double.infinity,
       height: 100.0,
-      margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       decoration: BoxDecoration(
           boxShadow: <BoxShadow>[
             BoxShadow(

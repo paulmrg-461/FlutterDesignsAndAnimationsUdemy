@@ -57,7 +57,8 @@ class EmergencyPage extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(top: 220.0),
-            child: ListView(children: <Widget>[
+            child:
+                ListView(physics: BouncingScrollPhysics(), children: <Widget>[
               SizedBox(
                 height: 70.0,
               ),
