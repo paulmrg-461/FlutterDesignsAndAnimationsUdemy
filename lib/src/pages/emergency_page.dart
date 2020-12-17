@@ -1,7 +1,8 @@
-import 'package:app_designs/src/widgets/fat_button.dart';
-import 'package:app_designs/src/widgets/headers.dart';
 import 'package:flutter/material.dart';
+import 'package:app_designs/src/widgets/headers.dart';
+import 'package:app_designs/src/widgets/fat_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:animate_do/animate_do.dart';
 
 class ItemButton {
   final IconData icon;
@@ -43,12 +44,15 @@ class EmergencyPage extends StatelessWidget {
     ];
 
     List<Widget> itemMap = items
-        .map((item) => FatButton(
-              icon: item.icon,
-              title: item.title,
-              onPressed: () => print('Hola tolos'),
-              gradientColor1: item.color1,
-              gradientColor2: item.color2,
+        .map((item) => FadeInLeft(
+              duration: Duration(milliseconds: 350),
+              child: FatButton(
+                icon: item.icon,
+                title: item.title,
+                onPressed: () => print('Hola tolos'),
+                gradientColor1: item.color1,
+                gradientColor2: item.color2,
+              ),
             ))
         .toList();
 
