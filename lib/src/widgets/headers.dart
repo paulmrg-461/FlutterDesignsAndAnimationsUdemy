@@ -313,12 +313,7 @@ class _IconHeaderBackground extends StatelessWidget {
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: <Color>[
-                //Color(0xff526BF6),
-                //Color(0xff67ACF2),
-                this.color1,
-                this.color2
-              ])),
+              colors: <Color>[this.color1, this.color2])),
     );
   }
 }
