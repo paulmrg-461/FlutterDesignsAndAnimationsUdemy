@@ -23,14 +23,14 @@ class EmergencyPage extends StatelessWidget {
           FatButton(
             icon: FontAwesomeIcons.apple,
             title: 'Apple Tola',
-            onPressed: () => print('Hola amiguis'),
+            onPressed: () => print('Hola Apple'),
             gradientColor1: Color(0xff388E3C),
             gradientColor2: Color(0xff4CAF50),
           ),
           FatButton(
             icon: FontAwesomeIcons.angry,
             title: 'Los voy a matar a todos',
-            onPressed: () => print('Hola amiguis'),
+            onPressed: () => print('Hola los voy a matar'),
           ),
         ],
       ),

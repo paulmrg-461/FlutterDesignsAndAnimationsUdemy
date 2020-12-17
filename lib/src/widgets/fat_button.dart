@@ -31,7 +31,8 @@ class FatButton extends StatelessWidget {
               this.gradientColor1;
           Provider.of<_FatButtonModel>(context).gradientColor2 =
               this.gradientColor2;
-          return _FatButtonBackground();
+          return GestureDetector(
+              onTap: this.onPressed, child: _FatButtonBackground());
         }));
   }
 }
