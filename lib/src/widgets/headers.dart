@@ -317,3 +317,101 @@ class _IconHeaderBackground extends StatelessWidget {
     );
   }
 }
+
+class GradientWaveHeader extends StatelessWidget {
+  final String title;
+  final Color fontColor;
+  final double fontSize;
+  final Color gradientColor1;
+  final Color gradientColor2;
+  final Color gradientColor3;
+
+  GradientWaveHeader({
+    @required this.title,
+    this.fontColor = Colors.white,
+    this.fontSize = 36.0,
+    this.gradientColor1 = Colors.deepPurple,
+    this.gradientColor2 = Colors.purple,
+    this.gradientColor3 = Colors.purpleAccent,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          height: double.infinity,
+          width: double.infinity,
+          //color: Color(0xff615AAB),
+          child: CustomPaint(
+            painter: _GradientWaveHeaderPainter(
+                this.gradientColor1, this.gradientColor2, this.gradientColor3),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 22.0, vertical: 90.0),
+          child: Text(
+            this.title,
+            style: TextStyle(
+                fontSize: this.fontSize,
+                color: this.fontColor,
+                fontWeight: FontWeight.w900),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class _GradientWaveHeaderPainter extends CustomPainter {
+  final Color gradientColor1;
+  final Color gradientColor2;
+  final Color gradientColor3;
+  _GradientWaveHeaderPainter(
+    this.gradientColor1,
+    this.gradientColor2,
+    this.gradientColor3,
+  );
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Rect rect =
+        new Rect.fromCircle(center: Offset(150.0, 250.0), radius: 90.0);
+
+    final Gradient gradient = new LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: <Color>[
+          this.gradientColor1,
+          this.gradientColor2,
+          this.gradientColor3,
+        ],
+        stops: [
+          0.0,
+          0.5,
+          1.0
+        ]);
+
+    final paint = Paint()..shader = gradient.createShader(rect);
+    //Properties
+    paint.color = Color(0xff615AAB);
+    paint.style = PaintingStyle.fill;
+
+    final path = Path();
+    //Draw with the path and paint
+    path.lineTo(0, size.height * 0.3);
+    path.quadraticBezierTo(size.width * 0.25, size.height * 0.35,
+        size.width * 0.5, size.height * 0.3);
+    path.quadraticBezierTo(
+        size.width * 0.75, size.height * 0.25, size.width, size.height * 0.3);
+    path.lineTo(size.width, 0);
+    //path.lineTo(size.width, size.height * 0.3);
+    canvas.drawShadow(path, Colors.grey[900], 3.0, false);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
