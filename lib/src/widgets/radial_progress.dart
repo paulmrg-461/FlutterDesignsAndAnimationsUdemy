@@ -71,6 +71,11 @@ class _MyRadialProgress extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    final gradient = LinearGradient(
+        colors: <Color>[Color(0xffC012FF), Color(0xff6D05E8), Colors.red]);
+
+    final Rect rect = new Rect.fromCircle(center: Offset(0, 0), radius: 180.0);
+
     final paint = new Paint()
       ..strokeWidth = 4
       ..color = Colors.grey
@@ -84,7 +89,8 @@ class _MyRadialProgress extends CustomPainter {
     //Arco
     final arcPaint = new Paint()
       ..strokeWidth = 10
-      ..color = color
+      ..shader = gradient.createShader(rect)
+      //..color = color
       ..style = PaintingStyle.stroke;
 
     double arcAngle = 2 * pi * (percentage / 100);
