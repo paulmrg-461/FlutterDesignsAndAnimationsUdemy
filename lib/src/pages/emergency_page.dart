@@ -3,37 +3,86 @@ import 'package:app_designs/src/widgets/headers.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+class ItemButton {
+  final IconData icon;
+  final String title;
+  final Color color1;
+  final Color color2;
+
+  ItemButton(this.icon, this.title, this.color1, this.color2);
+}
+
 class EmergencyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final items = <ItemButton>[
+      new ItemButton(FontAwesomeIcons.carCrash, 'Motor Accident',
+          Color(0xff6989F5), Color(0xff906EF5)),
+      new ItemButton(FontAwesomeIcons.plus, 'Medical Emergency',
+          Color(0xff66A9F2), Color(0xff536CF6)),
+      new ItemButton(FontAwesomeIcons.theaterMasks, 'Theft / Harrasement',
+          Color(0xffF2D572), Color(0xffE06AA3)),
+      new ItemButton(FontAwesomeIcons.biking, 'Awards', Color(0xff317183),
+          Color(0xff46997D)),
+      new ItemButton(FontAwesomeIcons.carCrash, 'Motor Accident',
+          Color(0xff6989F5), Color(0xff906EF5)),
+      new ItemButton(FontAwesomeIcons.plus, 'Medical Emergency',
+          Color(0xff66A9F2), Color(0xff536CF6)),
+      new ItemButton(FontAwesomeIcons.theaterMasks, 'Theft / Harrasement',
+          Color(0xffF2D572), Color(0xffE06AA3)),
+      new ItemButton(FontAwesomeIcons.biking, 'Awards', Color(0xff317183),
+          Color(0xff46997D)),
+      new ItemButton(FontAwesomeIcons.carCrash, 'Motor Accident',
+          Color(0xff6989F5), Color(0xff906EF5)),
+      new ItemButton(FontAwesomeIcons.plus, 'Medical Emergency',
+          Color(0xff66A9F2), Color(0xff536CF6)),
+      new ItemButton(FontAwesomeIcons.theaterMasks, 'Theft / Harrasement',
+          Color(0xffF2D572), Color(0xffE06AA3)),
+      new ItemButton(FontAwesomeIcons.biking, 'Awards', Color(0xff317183),
+          Color(0xff46997D)),
+    ];
+
+    List<Widget> itemMap = items
+        .map((item) => FatButton(
+              icon: item.icon,
+              title: item.title,
+              onPressed: () => print('Hola tolos'),
+              gradientColor1: item.color1,
+              gradientColor2: item.color2,
+            ))
+        .toList();
+
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: [
+          Container(
+            margin: EdgeInsets.only(top: 220.0),
+            child: ListView(children: <Widget>[
+              SizedBox(
+                height: 70.0,
+              ),
+              ...itemMap,
+              SizedBox(
+                height: 14.0,
+              ),
+            ]),
+          ),
           _HeaderWidget(),
-          SizedBox(
-            height: 12.0,
-          ),
-          FatButton(
-            icon: FontAwesomeIcons.carCrash,
-            title: 'Motor Accident',
-            onPressed: () => print('Hola amiguis'),
-            gradientColor1: Color(0xff6989F5),
-            gradientColor2: Color(0xff906EF5),
-          ),
-          FatButton(
-            icon: FontAwesomeIcons.apple,
-            title: 'Apple Tola',
-            onPressed: () => print('Hola Apple'),
-            gradientColor1: Color(0xff388E3C),
-            gradientColor2: Color(0xff4CAF50),
-          ),
-          FatButton(
-            icon: FontAwesomeIcons.angry,
-            title: 'Los voy a matar a todos',
-            onPressed: () => print('Hola los voy a matar'),
-          ),
         ],
       ),
+    );
+  }
+}
+
+class FatButtonTemp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FatButton(
+      icon: FontAwesomeIcons.carCrash,
+      title: 'Motor Accident',
+      onPressed: () => print('Hola amiguis'),
+      gradientColor1: Color(0xff6989F5),
+      gradientColor2: Color(0xff906EF5),
     );
   }
 }
