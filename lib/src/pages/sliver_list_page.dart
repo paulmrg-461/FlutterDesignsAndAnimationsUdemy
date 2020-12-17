@@ -1,23 +1,13 @@
-import 'package:app_designs/src/widgets/headers.dart';
 import 'package:flutter/material.dart';
 
 class SliverListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
-      children: [
-        _ToDoList(),
-        GradientWaveHeader(
-          title: 'To Do \nList',
-          headerHeight: 270.0,
-        ),
-      ],
-    ));
+    return Scaffold(body: _MainScroll());
   }
 }
 
-class _ToDoList extends StatelessWidget {
+class _MainScroll extends StatelessWidget {
   final items = [
     _ListItem('Deep Purple', Colors.deepPurple),
     _ListItem('Deep Orange', Colors.deepOrange),
@@ -31,13 +21,31 @@ class _ToDoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          floating: true,
+          backgroundColor: Colors.deepPurple,
+          title: Text('Hola amiguis'),
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate(items),
+        )
+      ],
+    );
+  }
+}
+
+/* class _ToDoList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) => items[index],
     );
   }
-}
+} */
 
 class _ListItem extends StatelessWidget {
   final String title;
