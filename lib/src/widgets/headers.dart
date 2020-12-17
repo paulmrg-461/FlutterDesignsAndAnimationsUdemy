@@ -320,6 +320,7 @@ class _IconHeaderBackground extends StatelessWidget {
 
 class GradientWaveHeader extends StatelessWidget {
   final String title;
+  final double headerHeight;
   final Color fontColor;
   final double fontSize;
   final Color gradientColor1;
@@ -328,6 +329,7 @@ class GradientWaveHeader extends StatelessWidget {
 
   GradientWaveHeader({
     @required this.title,
+    this.headerHeight = 300.0,
     this.fontColor = Colors.white,
     this.fontSize = 36.0,
     this.gradientColor1 = Colors.deepPurple,
@@ -341,7 +343,7 @@ class GradientWaveHeader extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          height: 300.0,
+          height: this.headerHeight,
           //color: Color(0xff615AAB),
           child: CustomPaint(
             painter: _GradientWaveHeaderPainter(
@@ -349,7 +351,9 @@ class GradientWaveHeader extends StatelessWidget {
           ),
         ),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 22.0, vertical: 90.0),
+          height: this.headerHeight - 30.0,
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Text(
             this.title,
             style: TextStyle(
