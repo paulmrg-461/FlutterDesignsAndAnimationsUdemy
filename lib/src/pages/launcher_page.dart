@@ -1,7 +1,9 @@
+import 'package:app_designs/src/theme/theme_changer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app_designs/src/routes/routes.dart';
+import 'package:provider/provider.dart';
 
 class LauncherPage extends StatelessWidget {
   @override
@@ -49,6 +51,7 @@ class _OptionsList extends StatelessWidget {
 class _MainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeChangerProvider = Provider.of<ThemeChanger>(context);
     return Drawer(
       child: Container(
         child: Column(
@@ -78,21 +81,26 @@ class _MainMenu extends StatelessWidget {
               ),
               title: Text('Dark Mode'),
               trailing: Switch.adaptive(
-                activeColor: Colors.deepPurple,
-                value: true,
-                onChanged: (value) {},
-              ),
+                  activeColor: Colors.deepPurple,
+                  value: themeChangerProvider.darkTheme,
+                  onChanged: (value) => themeChangerProvider.darkTheme = value),
             ),
-            ListTile(
-              leading: FaIcon(
-                FontAwesomeIcons.userEdit,
-                color: Colors.deepPurple,
-              ),
-              title: Text('Custom Theme'),
-              trailing: Switch.adaptive(
-                activeColor: Colors.deepPurple,
-                value: true,
-                onChanged: (value) {},
+            SafeArea(
+              top: false,
+              bottom: true,
+              left: false,
+              right: false,
+              child: ListTile(
+                leading: FaIcon(
+                  FontAwesomeIcons.userEdit,
+                  color: Colors.deepPurple,
+                ),
+                title: Text('Custom Theme'),
+                trailing: Switch.adaptive(
+                    activeColor: Colors.deepPurple,
+                    value: themeChangerProvider.customTheme,
+                    onChanged: (value) =>
+                        themeChangerProvider.customTheme = value),
               ),
             )
           ],
