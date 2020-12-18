@@ -1,3 +1,5 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,37 +14,57 @@ class Animations1Page extends StatelessWidget {
             onPressed: () => print('Hola amiguis'),
             icon: FaIcon(FontAwesomeIcons.twitter),
           ),
-          IconButton(
-            onPressed: () => print('Hola amiguis'),
-            icon: FaIcon(FontAwesomeIcons.chevronRight),
+          SlideInLeft(
+            from: 100.0,
+            child: IconButton(
+              onPressed: () => Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (BuildContext context) => Animations1Page())),
+              icon: FaIcon(FontAwesomeIcons.chevronRight),
+            ),
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => print('Hola Tolis'),
-        child: FaIcon(FontAwesomeIcons.play),
+      floatingActionButton: ElasticInRight(
+        child: FloatingActionButton(
+          onPressed: () => print('Hola Tolis'),
+          child: FaIcon(FontAwesomeIcons.play),
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(
-              Icons.new_releases,
-              color: Colors.blue,
-              size: 40.0,
+            ElasticIn(
+              delay: Duration(milliseconds: 1100),
+              child: Icon(
+                Icons.new_releases,
+                color: Colors.blue,
+                size: 50.0,
+              ),
             ),
-            Text(
-              'Title',
-              style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w300),
+            FadeInDown(
+              delay: Duration(milliseconds: 200),
+              child: Text(
+                'Title',
+                style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w300),
+              ),
             ),
-            Text(
-              'I\'m a small text',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300),
+            FadeInUpBig(
+              delay: Duration(milliseconds: 600),
+              child: Text(
+                'I\'m a small text',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300),
+              ),
             ),
-            Container(
-              width: 180.0,
-              height: 2.0,
-              color: Colors.blue,
+            FadeInLeft(
+              delay: Duration(milliseconds: 1100),
+              child: Container(
+                width: 180.0,
+                height: 2.0,
+                color: Colors.blue,
+              ),
             )
           ],
         ),
