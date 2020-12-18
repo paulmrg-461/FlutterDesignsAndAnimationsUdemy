@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:app_designs/src/pages/twitter_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:app_designs/src/pages/animations/twitter_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Animations1Page extends StatelessWidget {
