@@ -1,3 +1,4 @@
+import 'package:app_designs/src/theme/theme_changer.dart';
 import 'package:app_designs/src/widgets/pinterest_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -21,6 +22,7 @@ class _PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final menuIsActiveProvider = Provider.of<_MenuModel>(context)._menuIsActive;
+    final themeChangerProvider = Provider.of<ThemeChanger>(context);
     final screenSize = MediaQuery.of(context).size;
     return Positioned(
         bottom: 30.0,
@@ -29,9 +31,15 @@ class _PinterestMenuLocation extends StatelessWidget {
             child: Align(
                 child: PinterestMenu(
               menuIsActive: menuIsActiveProvider,
-              //menuBackgroundColor: Colors.deepPurple,
-              selectedItemColor: Colors.deepOrange,
-              unselectedItemColor: Colors.blueGrey,
+              menuBackgroundColor: themeChangerProvider.darkTheme
+                  ? themeChangerProvider.currentTheme.scaffoldBackgroundColor
+                  : Colors.white,
+              selectedItemColor: themeChangerProvider.darkTheme
+                  ? themeChangerProvider.currentTheme.accentColor
+                  : Colors.deepPurple,
+              unselectedItemColor: themeChangerProvider.darkTheme
+                  ? Colors.grey
+                  : Colors.blueGrey,
               items: [
                 PinterestButton(
                     icon: Icons.pie_chart,
