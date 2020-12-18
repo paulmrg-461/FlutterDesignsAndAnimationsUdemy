@@ -1,4 +1,4 @@
-import 'package:app_designs/src/pages/sliver_list_page.dart';
+import 'package:app_designs/src/pages/animations1_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -9,6 +9,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'App Designs',
-        home: SliverListPage());
+        home: Animations1Page());
   }
 }
