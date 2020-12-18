@@ -4,7 +4,38 @@ import 'package:flutter/material.dart';
 class SliverListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _MainScroll());
+    return Scaffold(
+        body: Stack(
+      children: [
+        _MainScroll(),
+        Positioned(bottom: -10, right: 0, child: _NewListButton())
+      ],
+    ));
+  }
+}
+
+class _NewListButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return ButtonTheme(
+      minWidth: size.width * 0.9,
+      child: RaisedButton(
+        onPressed: () => print('Hola amiguis Tolis'),
+        color: Colors.deepPurple,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(60.0))),
+        child: Container(
+          padding: EdgeInsets.only(top: 32.0, bottom: 36.0),
+          child: Text(
+            'CREATE NEW LIST',
+            style:
+                TextStyle(fontSize: 18, color: Colors.white, letterSpacing: 3),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -43,7 +74,7 @@ class _MainScroll extends StatelessWidget {
           delegate: SliverChildListDelegate([
             ...items,
             SizedBox(
-              height: 22.0,
+              height: 100.0,
             )
           ]),
         )
