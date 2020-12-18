@@ -1,11 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:app_designs/src/routes/routes.dart';
 
 class LauncherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
+        elevation: 5.0,
         title: Text('Flutter Designs'),
       ),
       drawer: _MainMenu(),
@@ -22,18 +26,21 @@ class _OptionsList extends StatelessWidget {
       separatorBuilder: (context, i) => Divider(
         color: Colors.deepPurple,
       ),
-      itemCount: 10,
+      itemCount: pageRoutes.length,
       itemBuilder: (context, i) => ListTile(
         leading: FaIcon(
-          FontAwesomeIcons.slideshare,
+          pageRoutes[i].icon,
           color: Colors.deepPurple,
         ),
-        title: Text('Hola Amiguis'),
+        title: Text(pageRoutes[i].title),
         trailing: FaIcon(
           FontAwesomeIcons.chevronRight,
           color: Colors.deepPurple,
         ),
-        onTap: () {},
+        onTap: () => Navigator.push(
+            context,
+            CupertinoPageRoute(
+                builder: (BuildContext context) => pageRoutes[i].page)),
       ),
     );
   }
