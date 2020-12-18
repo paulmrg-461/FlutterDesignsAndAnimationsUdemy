@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:app_designs/src/pages/twitter_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +12,10 @@ class Animations1Page extends StatelessWidget {
         title: Text('Animate Do'),
         actions: [
           IconButton(
-            onPressed: () => print('Hola amiguis'),
+            onPressed: () => Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (BuildContext context) => TwitterPage())),
             icon: FaIcon(FontAwesomeIcons.twitter),
           ),
           SlideInLeft(
@@ -61,7 +65,7 @@ class Animations1Page extends StatelessWidget {
             FadeInLeft(
               delay: Duration(milliseconds: 1100),
               child: Container(
-                width: 180.0,
+                width: 130.0,
                 height: 2.0,
                 color: Colors.blue,
               ),
