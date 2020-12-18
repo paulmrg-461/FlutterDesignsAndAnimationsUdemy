@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:app_designs/src/pages/animations/navigation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:app_designs/src/pages/animations/twitter_page.dart';
@@ -24,7 +25,7 @@ class Animations1Page extends StatelessWidget {
               onPressed: () => Navigator.push(
                   context,
                   CupertinoPageRoute(
-                      builder: (BuildContext context) => Animations1Page())),
+                      builder: (BuildContext context) => NavigationPage())),
               icon: FaIcon(FontAwesomeIcons.chevronRight),
             ),
           )
