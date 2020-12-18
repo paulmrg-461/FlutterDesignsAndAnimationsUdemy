@@ -10,7 +10,6 @@ class LauncherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
         elevation: 5.0,
         title: Text('Flutter Designs'),
       ),
@@ -23,21 +22,22 @@ class LauncherPage extends StatelessWidget {
 class _OptionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeChanger>(context).currentTheme;
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       separatorBuilder: (context, i) => Divider(
-        color: Colors.deepPurple,
+        color: themeProvider.primaryColorLight,
       ),
       itemCount: pageRoutes.length,
       itemBuilder: (context, i) => ListTile(
         leading: FaIcon(
           pageRoutes[i].icon,
-          color: Colors.deepPurple,
+          color: themeProvider.accentColor,
         ),
         title: Text(pageRoutes[i].title),
         trailing: FaIcon(
           FontAwesomeIcons.chevronRight,
-          color: Colors.deepPurple,
+          color: themeProvider.accentColor,
         ),
         onTap: () => Navigator.push(
             context,
@@ -63,7 +63,8 @@ class _MainMenu extends StatelessWidget {
                 height: 200.0,
                 //color: Colors.deepPurple,
                 child: CircleAvatar(
-                  backgroundColor: Colors.deepPurple,
+                  backgroundColor:
+                      themeChangerProvider.currentTheme.accentColor,
                   child: Text(
                     'PR',
                     style: TextStyle(fontSize: 50.0),
@@ -77,11 +78,11 @@ class _MainMenu extends StatelessWidget {
             ListTile(
               leading: FaIcon(
                 FontAwesomeIcons.lightbulb,
-                color: Colors.deepPurple,
+                color: themeChangerProvider.currentTheme.accentColor,
               ),
               title: Text('Dark Mode'),
               trailing: Switch.adaptive(
-                  activeColor: Colors.deepPurple,
+                  activeColor: themeChangerProvider.currentTheme.accentColor,
                   value: themeChangerProvider.darkTheme,
                   onChanged: (value) => themeChangerProvider.darkTheme = value),
             ),
@@ -93,11 +94,11 @@ class _MainMenu extends StatelessWidget {
               child: ListTile(
                 leading: FaIcon(
                   FontAwesomeIcons.userEdit,
-                  color: Colors.deepPurple,
+                  color: themeChangerProvider.currentTheme.accentColor,
                 ),
                 title: Text('Custom Theme'),
                 trailing: Switch.adaptive(
-                    activeColor: Colors.deepPurple,
+                    activeColor: themeChangerProvider.currentTheme.accentColor,
                     value: themeChangerProvider.customTheme,
                     onChanged: (value) =>
                         themeChangerProvider.customTheme = value),
