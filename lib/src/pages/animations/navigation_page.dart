@@ -25,8 +25,15 @@ class _FloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () =>
-          Provider.of<_NotificationModel>(context, listen: false).number += 1,
+      onPressed: () {
+        final notificationModel =
+            Provider.of<_NotificationModel>(context, listen: false);
+        notificationModel.number += 1;
+        if (notificationModel.number >= 2) {
+          final controller = notificationModel.bounceController;
+          controller.forward(from: 0.0);
+        }
+      },
       backgroundColor: Colors.deepPurple,
       child: FaIcon(FontAwesomeIcons.play),
     );
@@ -52,18 +59,26 @@ class _BottomNavigation extends StatelessWidget {
                   top: 0.0,
                   right: 0.0,
                   child: BounceInDown(
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          '$notificationCounter',
-                          style: TextStyle(color: Colors.white, fontSize: 8),
+                    from: 20.0,
+                    animate: (notificationCounter > 0) ? true : false,
+                    child: Bounce(
+                      from: 10.0,
+                      controller: (controller) =>
+                          Provider.of<_NotificationModel>(context)
+                              .bounceController = controller,
+                      child: Container(
+                        child: Center(
+                          child: Text(
+                            '$notificationCounter',
+                            style: TextStyle(color: Colors.white, fontSize: 8),
+                          ),
                         ),
+                        width: 12.0,
+                        height: 12.0,
+                        decoration: BoxDecoration(
+                            color: Colors.pink.withOpacity(0.8),
+                            shape: BoxShape.circle),
                       ),
-                      width: 12.0,
-                      height: 12.0,
-                      decoration: BoxDecoration(
-                          color: Colors.pink.withOpacity(0.8),
-                          shape: BoxShape.circle),
                     ),
                   ),
                   /* child: Icon(
@@ -83,10 +98,17 @@ class _BottomNavigation extends StatelessWidget {
 
 class _NotificationModel extends ChangeNotifier {
   int _number = 0;
+  AnimationController _bounceController;
 
   int get number => this._number;
   set number(int number) {
     this._number = number;
+    notifyListeners();
+  }
+
+  AnimationController get bounceController => this._bounceController;
+  set bounceController(AnimationController bounceController) {
+    this._bounceController = bounceController;
     notifyListeners();
   }
 }
