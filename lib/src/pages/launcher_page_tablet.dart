@@ -1,3 +1,4 @@
+import 'package:app_designs/src/models/layout_model.dart';
 import 'package:app_designs/src/pages/slideshow_page.dart';
 import 'package:app_designs/src/theme/theme_changer.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,7 @@ class LauncherPageTablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeChanger>(context).currentTheme;
+    final layoutModel = Provider.of<LayoutModel>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 5.0,
@@ -20,12 +22,13 @@ class LauncherPageTablet extends StatelessWidget {
         children: <Widget>[
           Container(
             width: 300.0,
+            margin: EdgeInsets.only(right: 12.0),
             height: double.infinity,
             decoration: BoxDecoration(
               color: themeProvider.canvasColor,
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black.withOpacity(0.6),
                     offset: Offset(4, 6),
                     blurRadius: 10.0)
               ],
@@ -33,7 +36,7 @@ class LauncherPageTablet extends StatelessWidget {
             child: _OptionsList(),
           ),
           Expanded(
-            child: SlideshowPage(),
+            child: layoutModel.currentPage,
           )
         ],
       ),
@@ -61,10 +64,10 @@ class _OptionsList extends StatelessWidget {
           FontAwesomeIcons.chevronRight,
           color: themeProvider.accentColor,
         ),
-        onTap: () => Navigator.push(
-            context,
-            CupertinoPageRoute(
-                builder: (BuildContext context) => pageRoutes[i].page)),
+        onTap: () {
+          final layoutModel = Provider.of<LayoutModel>(context, listen: false);
+          layoutModel.currentPage = pageRoutes[i].page;
+        },
       ),
     );
   }
