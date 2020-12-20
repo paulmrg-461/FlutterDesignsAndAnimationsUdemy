@@ -1,3 +1,4 @@
+import 'package:app_designs/src/pages/slideshow_page.dart';
 import 'package:app_designs/src/theme/theme_changer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +9,34 @@ import 'package:provider/provider.dart';
 class LauncherPageTablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeChanger>(context).currentTheme;
     return Scaffold(
       appBar: AppBar(
         elevation: 5.0,
         title: Text('Tablet Flutter Designs'),
       ),
       drawer: _MainMenu(),
-      body: _OptionsList(),
+      body: Row(
+        children: <Widget>[
+          Container(
+            width: 300.0,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              color: themeProvider.canvasColor,
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    offset: Offset(4, 6),
+                    blurRadius: 10.0)
+              ],
+            ),
+            child: _OptionsList(),
+          ),
+          Expanded(
+            child: SlideshowPage(),
+          )
+        ],
+      ),
     );
   }
 }
