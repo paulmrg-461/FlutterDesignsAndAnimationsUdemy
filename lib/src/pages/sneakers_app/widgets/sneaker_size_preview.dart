@@ -29,7 +29,26 @@ class _SneakerShadowImage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(32.0),
       child: Stack(
-        children: <Widget>[Image(image: AssetImage('assets/imgs/azul.png'))],
+        children: <Widget>[
+          Positioned(bottom: 20.0, left: 0.0, child: _SneakerShadow()),
+          Image(image: AssetImage('assets/imgs/azul.png'))
+        ],
+      ),
+    );
+  }
+}
+
+class _SneakerShadow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Transform.rotate(
+      angle: -0.5,
+      child: Container(
+        width: 250,
+        height: 120,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100.0),
+            boxShadow: [BoxShadow(color: Color(0xffEAA14E), blurRadius: 40.0)]),
       ),
     );
   }
