@@ -8,16 +8,29 @@ class SneakerPage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           CustomAppBar(text: 'For you', icon: Icons.search),
-          SneakerSizePreview(
-            sizes: [
-              SneakerSizeContainer(size: 7),
-              SneakerSizeContainer(size: 7.5),
-              SneakerSizeContainer(size: 8),
-              SneakerSizeContainer(size: 8.5),
-              SneakerSizeContainer(size: 9),
-              SneakerSizeContainer(size: 9.5),
-            ],
-          )
+          Expanded(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  SneakerSizePreview(
+                    sizes: [
+                      SneakerSizeContainer(size: 7),
+                      SneakerSizeContainer(size: 7.5),
+                      SneakerSizeContainer(size: 8),
+                      SneakerSizeContainer(size: 8.5),
+                      SneakerSizeContainer(size: 9),
+                      SneakerSizeContainer(size: 9.5),
+                    ],
+                  ),
+                  SneakerDescription(
+                      title: 'Nike Air Max 720',
+                      description:
+                          "The Nike Air Max 720 goes bigger than ever before with Nike's taller Air unit yet, offering more air underfoot for unimaginable, all-day comfort. Has Air Max gone too far? We hope so."),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

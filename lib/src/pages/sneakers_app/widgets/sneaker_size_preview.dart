@@ -28,7 +28,7 @@ class SneakerSizePreview extends StatelessWidget {
             children: <Widget>[
               //Sneaker
               _SneakerShadowImage(),
-              _SneakerSize(this.sizes)
+              _SneakerSize(this.sizes),
             ],
           ),
         ),
@@ -36,6 +36,8 @@ class SneakerSizePreview extends StatelessWidget {
     );
   }
 }
+
+//
 
 class _SneakerShadowImage extends StatelessWidget {
   @override
