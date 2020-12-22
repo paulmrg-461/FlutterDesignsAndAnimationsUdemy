@@ -15,7 +15,7 @@ class SneakerSizePreview extends StatelessWidget {
           children: <Widget>[
             //Sneaker
             _SneakerShadowImage(),
-            //TODO Sizes
+            _SneakerSize()
           ],
         ),
       ),
@@ -50,6 +50,53 @@ class _SneakerShadow extends StatelessWidget {
             borderRadius: BorderRadius.circular(100.0),
             boxShadow: [BoxShadow(color: Color(0xffEAA14E), blurRadius: 40.0)]),
       ),
+    );
+  }
+}
+
+class _SneakerSize extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          _SizeSneakerContainer(7),
+          _SizeSneakerContainer(7.5),
+          _SizeSneakerContainer(8),
+          _SizeSneakerContainer(8.5),
+          _SizeSneakerContainer(9),
+          _SizeSneakerContainer(9.5),
+        ],
+      ),
+    );
+  }
+}
+
+class _SizeSneakerContainer extends StatelessWidget {
+  final double sizeNumber;
+
+  _SizeSneakerContainer(this.sizeNumber);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Text(
+          '${sizeNumber.toString().replaceAll('.0', '')}',
+          style: TextStyle(
+              color: Color(0xffF1A23A),
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+      width: 45,
+      height: 45,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.0),
+          boxShadow: [BoxShadow(color: Color(0xffEAA14E), blurRadius: 10.0)]),
     );
   }
 }
