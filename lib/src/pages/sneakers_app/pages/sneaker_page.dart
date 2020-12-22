@@ -8,7 +8,16 @@ class SneakerPage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           CustomAppBar(text: 'For you', icon: Icons.search),
-          SneakerSizePreview()
+          SneakerSizePreview(
+            sizes: [
+              SneakerSizeContainer(size: 7),
+              SneakerSizeContainer(size: 7.5),
+              SneakerSizeContainer(size: 8),
+              SneakerSizeContainer(size: 8.5),
+              SneakerSizeContainer(size: 9),
+              SneakerSizeContainer(size: 9.5),
+            ],
+          )
         ],
       ),
     );
