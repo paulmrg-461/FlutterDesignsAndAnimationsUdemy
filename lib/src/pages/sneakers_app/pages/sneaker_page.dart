@@ -5,9 +5,12 @@ class SneakerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: CustomAppBar(
-      text: 'For you',
-      icon: Icons.search,
-    ));
+      body: Column(
+        children: <Widget>[
+          CustomAppBar(text: 'For you', icon: Icons.search),
+          SneakerSizePreview()
+        ],
+      ),
+    );
   }
 }
