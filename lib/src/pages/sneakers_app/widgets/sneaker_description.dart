@@ -19,7 +19,7 @@ class SneakerDescription extends StatelessWidget {
             style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
           ),
           Container(
-            margin: EdgeInsets.only(top: 16.0),
+            margin: EdgeInsets.only(top: 16.0, bottom: 16.0),
             child: Text(
               this.description,
               textAlign: TextAlign.left,

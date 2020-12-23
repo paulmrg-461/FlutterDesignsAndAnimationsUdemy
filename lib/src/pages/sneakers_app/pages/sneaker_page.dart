@@ -31,6 +31,7 @@ class SneakerPage extends StatelessWidget {
               ),
             ),
           ),
+          AddToCartButton(amount: 180.0),
         ],
       ),
     );
