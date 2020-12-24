@@ -9,18 +9,26 @@ class SneakerSizeContainer {
 
 class SneakerSizePreview extends StatelessWidget {
   final List<SneakerSizeContainer> sizes;
+  final double height;
+  final double horizontalPadding;
+  final double verticalPadding;
 
-  SneakerSizePreview({@required this.sizes});
+  SneakerSizePreview(
+      {this.sizes,
+      this.height = 430.0,
+      this.horizontalPadding = 22.0,
+      this.verticalPadding = 22.0});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => _SneakerModel(),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 22.0, vertical: 22.0),
+        padding: EdgeInsets.symmetric(
+            horizontal: this.horizontalPadding, vertical: this.verticalPadding),
         child: Container(
           width: double.infinity,
-          height: 430.0,
+          height: this.height,
           decoration: BoxDecoration(
               color: Color(0xffFFCF53),
               borderRadius: BorderRadius.circular(48.0)),
@@ -28,7 +36,7 @@ class SneakerSizePreview extends StatelessWidget {
             children: <Widget>[
               //Sneaker
               _SneakerShadowImage(),
-              _SneakerSize(this.sizes),
+              _SneakerSize(this.sizes != null ? this.sizes : []),
             ],
           ),
         ),
@@ -75,16 +83,20 @@ class _SneakerSize extends StatelessWidget {
   _SneakerSize(this.sizeSneakerContainers);
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: List.generate(
-            sizeSneakerContainers.length,
-            (index) =>
-                _SizeSneakerContainer(index, sizeSneakerContainers[index])),
-      ),
-    );
+    if (sizeSneakerContainers.length > 0) {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(
+              sizeSneakerContainers.length,
+              (index) =>
+                  _SizeSneakerContainer(index, sizeSneakerContainers[index])),
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }
 

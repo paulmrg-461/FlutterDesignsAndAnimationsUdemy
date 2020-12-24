@@ -16,6 +16,8 @@ class AddToCartButton extends StatelessWidget {
           ),
           CustomButton(
             text: 'Buy it now',
+            buttonColor: Color(0xffF1A23A),
+            horizontalPadding: 22,
           ),
         ],
       ),
