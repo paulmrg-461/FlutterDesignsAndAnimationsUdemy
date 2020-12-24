@@ -72,7 +72,7 @@ class _SneakerShadow extends StatelessWidget {
         height: 120,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100.0),
-            boxShadow: [BoxShadow(color: Color(0xffEAA14E), blurRadius: 40.0)]),
+            boxShadow: [BoxShadow(color: Color(0xffEAA14E), blurRadius: 30.0)]),
       ),
     );
   }

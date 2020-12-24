@@ -1,4 +1,6 @@
+import 'package:app_designs/src/pages/sneakers_app/pages/sneaker_description_page.dart';
 import 'package:app_designs/src/pages/sneakers_app/widgets/custom_widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SneakerPage extends StatelessWidget {
@@ -31,7 +33,15 @@ class SneakerPage extends StatelessWidget {
               ),
             ),
           ),
-          AddToCartButton(amount: 180.0),
+          AddToCartButton(
+            amount: 180.0,
+            textButton: 'Add to cart',
+            onPress: () => Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (BuildContext context) =>
+                        SneakerDescriptionPage())),
+          ),
         ],
       ),
     );

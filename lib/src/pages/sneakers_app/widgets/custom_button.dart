@@ -1,9 +1,9 @@
-import 'package:app_designs/src/pages/sneakers_app/pages/sneaker_description_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
+  final Function onPress;
   final Color buttonColor;
   final Color textButtonColor;
   final double fontSize;
@@ -14,6 +14,7 @@ class CustomButton extends StatelessWidget {
 
   CustomButton(
       {@required this.text,
+      @required this.onPress,
       this.buttonColor = Colors.orange,
       this.textButtonColor = Colors.white,
       this.fontSize = 16,
@@ -25,10 +26,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-          context,
-          CupertinoPageRoute(
-              builder: (BuildContext context) => SneakerDescriptionPage())),
+      onTap: this.onPress,
       child: Container(
         child: Text(
           this.text,
