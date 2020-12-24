@@ -82,11 +82,15 @@ class _ColorsAndMore extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            width: 35,
-            height: 35,
-            decoration:
-                BoxDecoration(color: Colors.blueGrey, shape: BoxShape.circle),
+          Expanded(
+            child: Stack(
+              children: [
+                Positioned(left: 75, child: _ColorSelection(Color(0xffC6D642))),
+                Positioned(left: 50, child: _ColorSelection(Color(0xffFFAD29))),
+                Positioned(left: 25, child: _ColorSelection(Color(0xff2099F1))),
+                _ColorSelection(Color(0xff364D56)),
+              ],
+            ),
           ),
           CustomButton(
             text: 'More related items',
@@ -97,6 +101,19 @@ class _ColorsAndMore extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class _ColorSelection extends StatelessWidget {
+  final Color color;
+  _ColorSelection(this.color);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 35,
+      height: 35,
+      decoration: BoxDecoration(color: this.color, shape: BoxShape.circle),
     );
   }
 }
