@@ -12,12 +12,21 @@ class SneakerSizePreview extends StatelessWidget {
   final double height;
   final double horizontalPadding;
   final double verticalPadding;
+  final double topLeftRadius;
+  final double topRightRadius;
+  final double bottomLeftRadius;
+  final double bottomRightRadius;
 
-  SneakerSizePreview(
-      {this.sizes,
-      this.height = 430.0,
-      this.horizontalPadding = 22.0,
-      this.verticalPadding = 22.0});
+  SneakerSizePreview({
+    this.sizes,
+    this.height = 430.0,
+    this.horizontalPadding = 22.0,
+    this.verticalPadding = 22.0,
+    this.topLeftRadius = 48.0,
+    this.topRightRadius = 48.0,
+    this.bottomLeftRadius = 48.0,
+    this.bottomRightRadius = 48.0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +40,11 @@ class SneakerSizePreview extends StatelessWidget {
           height: this.height,
           decoration: BoxDecoration(
               color: Color(0xffFFCF53),
-              borderRadius: BorderRadius.circular(48.0)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(this.topLeftRadius),
+                  topRight: Radius.circular(this.topRightRadius),
+                  bottomLeft: Radius.circular(this.bottomLeftRadius),
+                  bottomRight: Radius.circular(this.bottomRightRadius))),
           child: Column(
             children: <Widget>[
               //Sneaker

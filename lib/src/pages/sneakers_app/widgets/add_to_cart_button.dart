@@ -118,14 +118,22 @@ class _ColorSelection extends StatelessWidget {
   }
 }
 
-class _Actions extends StatelessWidget {
+class _Actions extends StatefulWidget {
+  @override
+  __ActionsState createState() => __ActionsState();
+}
+
+class __ActionsState extends State<_Actions> {
+  bool isLike = false;
   @override
   Widget build(BuildContext context) {
     return CustomCircularButton(buttons: [
       CircleButton(
           icon: FontAwesomeIcons.solidHeart,
-          iconColor: Colors.red,
-          onPress: () => print('Holi')),
+          iconColor: isLike ? Colors.red : Colors.grey.withOpacity(0.5),
+          onPress: () => this.setState(() {
+                isLike = !isLike;
+              })),
       CircleButton(
           icon: FontAwesomeIcons.shoppingCart,
           iconColor: Colors.grey.withOpacity(0.5),

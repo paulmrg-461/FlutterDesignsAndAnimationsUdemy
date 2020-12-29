@@ -7,10 +7,25 @@ class SneakerDescriptionPage extends StatelessWidget {
     return Scaffold(
         body: Column(
       children: <Widget>[
-        SneakerSizePreview(
-          height: 390.0,
-          horizontalPadding: 4.0,
-          verticalPadding: 4.0,
+        Stack(
+          children: [
+            SneakerSizePreview(
+              height: 385.0,
+              horizontalPadding: 4.0,
+              verticalPadding: 4.0,
+              topLeftRadius: 16,
+              topRightRadius: 16,
+            ),
+            IconButton(
+              padding: EdgeInsets.symmetric(vertical: 28, horizontal: 8),
+              icon: Icon(
+                Icons.chevron_left,
+                color: Colors.white,
+                size: 48,
+              ),
+              onPressed: () => Navigator.pop(context),
+            )
+          ],
         ),
         Expanded(
           child: SingleChildScrollView(

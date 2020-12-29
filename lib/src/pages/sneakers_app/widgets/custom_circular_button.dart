@@ -48,15 +48,16 @@ class _CustomCircularButtonContainer extends StatelessWidget {
           size: this.button.iconSize,
           color: this.button.iconColor,
         )),
-        width: 50,
-        height: 50,
+        width: 45,
+        height: 45,
         decoration: BoxDecoration(
             color: Colors.white,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
                   color: Colors.black45,
-                  blurRadius: 35.0,
+                  spreadRadius: -5,
+                  blurRadius: 20.0,
                   offset: Offset(0.0, 5)),
             ]),
       ),
