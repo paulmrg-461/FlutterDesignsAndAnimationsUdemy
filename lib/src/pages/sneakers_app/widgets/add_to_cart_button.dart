@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:app_designs/src/pages/sneakers_app/models/sneaker_model.dart';
 import 'package:app_designs/src/pages/sneakers_app/widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class AddToCartButton extends StatelessWidget {
   final double amount;
@@ -93,12 +95,18 @@ class _ColorsAndMore extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned(
-                    left: 75, child: _ColorSelection(Color(0xffC6D642), 4)),
+                    left: 75,
+                    child: _ColorSelection(
+                        Color(0xffC6D642), 4, 'assets/imgs/verde.png')),
                 Positioned(
-                    left: 50, child: _ColorSelection(Color(0xffFFAD29), 3)),
+                    left: 50,
+                    child: _ColorSelection(
+                        Color(0xffFFAD29), 3, 'assets/imgs/amarillo.png')),
                 Positioned(
-                    left: 25, child: _ColorSelection(Color(0xff2099F1), 2)),
-                _ColorSelection(Color(0xff364D56), 1),
+                    left: 25,
+                    child: _ColorSelection(
+                        Color(0xff2099F1), 2, 'assets/imgs/azul.png')),
+                _ColorSelection(Color(0xff364D56), 1, 'assets/imgs/negro.png'),
               ],
             ),
           ),
@@ -118,16 +126,21 @@ class _ColorsAndMore extends StatelessWidget {
 class _ColorSelection extends StatelessWidget {
   final Color color;
   final int index;
-  _ColorSelection(this.color, this.index);
+  final String urlAssetImage;
+  _ColorSelection(this.color, this.index, this.urlAssetImage);
   @override
   Widget build(BuildContext context) {
     return FadeInLeft(
       delay: Duration(milliseconds: this.index * 100),
       duration: Duration(milliseconds: 300),
-      child: Container(
-        width: 35,
-        height: 35,
-        decoration: BoxDecoration(color: this.color, shape: BoxShape.circle),
+      child: GestureDetector(
+        onTap: () => Provider.of<SneakerModel>(context, listen: false)
+            .urlAssetImage = this.urlAssetImage,
+        child: Container(
+          width: 35,
+          height: 35,
+          decoration: BoxDecoration(color: this.color, shape: BoxShape.circle),
+        ),
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:app_designs/src/models/layout_model.dart';
-import 'package:app_designs/src/pages/launcher_page.dart';
-import 'package:app_designs/src/pages/launcher_page_tablet.dart';
+import 'package:app_designs/src/pages/sneakers_app/models/sneaker_model.dart';
 import 'package:app_designs/src/pages/sneakers_app/pages/sneaker_page.dart';
 import 'package:app_designs/src/theme/theme_changer.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,7 @@ void main() => runApp(MultiProvider(providers: [
       ChangeNotifierProvider(
         create: (_) => LayoutModel(),
       ),
+      ChangeNotifierProvider(create: (_) => SneakerModel())
     ], child: MyApp()));
 
 class MyApp extends StatelessWidget {
