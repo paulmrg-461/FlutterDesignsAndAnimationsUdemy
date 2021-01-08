@@ -1,3 +1,4 @@
+import 'package:app_designs/src/music_player/helpers/helpers.dart';
 import 'package:app_designs/src/music_player/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,9 +11,31 @@ class MusicPlayerPage extends StatelessWidget {
       children: [
         CustomAppBar(),
         _ImageDiscAndDuration(),
-        _TitleAndActionButton()
+        _TitleAndActionButton(),
+        Expanded(child: _Lyrics())
       ],
     ));
+  }
+}
+
+class _Lyrics extends StatelessWidget {
+  final lyrics = getLyrics();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ListWheelScrollView(
+          physics: BouncingScrollPhysics(),
+          itemExtent: 36,
+          diameterRatio: 1.5,
+          children: lyrics
+              .map((line) => Text(
+                    line,
+                    style: TextStyle(
+                        fontSize: 18.0, color: Colors.white.withOpacity(0.6)),
+                  ))
+              .toList()),
+    );
   }
 }
 
@@ -21,7 +44,7 @@ class _ImageDiscAndDuration extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 28.0),
-      margin: EdgeInsets.only(top: 60),
+      margin: EdgeInsets.only(top: 40),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [_DiscImage(), _ProgressBar()],
@@ -34,7 +57,8 @@ class _TitleAndActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 36),
+      padding: EdgeInsets.symmetric(horizontal: 28.0),
+      margin: EdgeInsets.only(top: 36.0, bottom: 18.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
