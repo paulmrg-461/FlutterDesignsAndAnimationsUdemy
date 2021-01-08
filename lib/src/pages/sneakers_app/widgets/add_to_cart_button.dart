@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:app_designs/src/pages/sneakers_app/widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,11 +8,13 @@ class AddToCartButton extends StatelessWidget {
   final String textButton;
   final Function onPress;
   final bool isFullScreen;
+  final bool animation;
   AddToCartButton(
       {@required this.amount,
       @required this.textButton,
       @required this.onPress,
-      this.isFullScreen = false});
+      this.isFullScreen = false,
+      this.animation = false});
   @override
   Widget build(BuildContext context) {
     if (isFullScreen) {
@@ -31,10 +34,10 @@ class AddToCartButton extends StatelessWidget {
     } else {
       return Container(
         child: _ValueAndButton(
-          amount: this.amount,
-          textButton: this.textButton,
-          onPress: this.onPress,
-        ),
+            amount: this.amount,
+            textButton: this.textButton,
+            onPress: this.onPress,
+            animation: this.animation),
         width: double.infinity,
         margin: EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
         padding: EdgeInsets.all(24.0),
@@ -50,10 +53,12 @@ class _ValueAndButton extends StatelessWidget {
   final double amount;
   final String textButton;
   final Function onPress;
+  final bool animation;
   _ValueAndButton(
       {@required this.amount,
       @required this.textButton,
-      @required this.onPress});
+      @required this.onPress,
+      this.animation = true});
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +70,12 @@ class _ValueAndButton extends StatelessWidget {
           style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
         ),
         CustomButton(
-            text: this.textButton,
-            buttonColor: Color(0xffF1A23A),
-            horizontalPadding: 22,
-            onPress: this.onPress),
+          text: this.textButton,
+          buttonColor: Color(0xffF1A23A),
+          horizontalPadding: 22,
+          onPress: this.onPress,
+          animate: this.animation,
+        ),
       ],
     );
   }
@@ -85,10 +92,13 @@ class _ColorsAndMore extends StatelessWidget {
           Expanded(
             child: Stack(
               children: [
-                Positioned(left: 75, child: _ColorSelection(Color(0xffC6D642))),
-                Positioned(left: 50, child: _ColorSelection(Color(0xffFFAD29))),
-                Positioned(left: 25, child: _ColorSelection(Color(0xff2099F1))),
-                _ColorSelection(Color(0xff364D56)),
+                Positioned(
+                    left: 75, child: _ColorSelection(Color(0xffC6D642), 4)),
+                Positioned(
+                    left: 50, child: _ColorSelection(Color(0xffFFAD29), 3)),
+                Positioned(
+                    left: 25, child: _ColorSelection(Color(0xff2099F1), 2)),
+                _ColorSelection(Color(0xff364D56), 1),
               ],
             ),
           ),
@@ -107,13 +117,18 @@ class _ColorsAndMore extends StatelessWidget {
 
 class _ColorSelection extends StatelessWidget {
   final Color color;
-  _ColorSelection(this.color);
+  final int index;
+  _ColorSelection(this.color, this.index);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 35,
-      height: 35,
-      decoration: BoxDecoration(color: this.color, shape: BoxShape.circle),
+    return FadeInLeft(
+      delay: Duration(milliseconds: this.index * 100),
+      duration: Duration(milliseconds: 300),
+      child: Container(
+        width: 35,
+        height: 35,
+        decoration: BoxDecoration(color: this.color, shape: BoxShape.circle),
+      ),
     );
   }
 }

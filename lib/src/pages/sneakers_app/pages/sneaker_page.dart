@@ -15,15 +15,18 @@ class SneakerPage extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  SneakerSizePreview(
-                    sizes: [
-                      SneakerSizeContainer(size: 7),
-                      SneakerSizeContainer(size: 7.5),
-                      SneakerSizeContainer(size: 8),
-                      SneakerSizeContainer(size: 8.5),
-                      SneakerSizeContainer(size: 9),
-                      SneakerSizeContainer(size: 9.5),
-                    ],
+                  Hero(
+                    tag: 'sneaker-1',
+                    child: SneakerSizePreview(
+                      sizes: [
+                        SneakerSizeContainer(size: 7),
+                        SneakerSizeContainer(size: 7.5),
+                        SneakerSizeContainer(size: 8),
+                        SneakerSizeContainer(size: 8.5),
+                        SneakerSizeContainer(size: 9),
+                        SneakerSizeContainer(size: 9.5),
+                      ],
+                    ),
                   ),
                   SneakerDescription(
                       title: 'Nike Air Max 720',
