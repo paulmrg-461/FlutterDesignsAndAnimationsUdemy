@@ -1,12 +1,17 @@
 import 'package:app_designs/src/music_player/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MusicPlayerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: [CustomAppBar(), _ImageDiscAndDuration()],
+      children: [
+        CustomAppBar(),
+        _ImageDiscAndDuration(),
+        _TitleAndActionButton()
+      ],
     ));
   }
 }
@@ -20,6 +25,54 @@ class _ImageDiscAndDuration extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [_DiscImage(), _ProgressBar()],
+      ),
+    );
+  }
+}
+
+class _TitleAndActionButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 36),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _SongTitle(),
+          FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: Color(0xffF8CB51),
+            child: FaIcon(
+              FontAwesomeIcons.play,
+              size: 16,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _SongTitle extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Far Away',
+            textAlign: TextAlign.left,
+            style:
+                TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 32),
+          ),
+          Text(
+            '-Breaking Benjamin-',
+            textAlign: TextAlign.left,
+            style:
+                TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 12),
+          ),
+        ],
       ),
     );
   }
