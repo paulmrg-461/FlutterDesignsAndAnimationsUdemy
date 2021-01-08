@@ -15,10 +15,49 @@ class _ImageDiscAndDuration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 28.0),
+      margin: EdgeInsets.only(top: 60),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [_DiscImage(), _ProgressBar()],
+      ),
+    );
+  }
+}
+
+class _ProgressBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final style = TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 12);
+    return Container(
+      height: 270.0,
+      margin: EdgeInsets.only(right: 22.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _DiscImage()
-          //TODO: Progessbar
+          Text(
+            '04:53',
+            style: style,
+          ),
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                height: 220,
+                width: 3,
+                color: Colors.white.withOpacity(0.4),
+              ),
+              Container(
+                height: 150,
+                width: 3,
+                color: Colors.white.withOpacity(0.8),
+              ),
+            ],
+          ),
+          Text(
+            '02:58',
+            style: style,
+          ),
         ],
       ),
     );
@@ -30,7 +69,6 @@ class _DiscImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(18.0),
-      margin: EdgeInsets.all(18.0),
       width: 250.0,
       height: 250.0,
       child: ClipRRect(
