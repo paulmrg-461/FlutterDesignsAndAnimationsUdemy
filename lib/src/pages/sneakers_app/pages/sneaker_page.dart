@@ -1,3 +1,4 @@
+import 'package:app_designs/src/pages/sneakers_app/helpers/helpers.dart';
 import 'package:app_designs/src/pages/sneakers_app/pages/sneaker_description_page.dart';
 import 'package:app_designs/src/pages/sneakers_app/widgets/custom_widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 class SneakerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    changeDarkStatusBar();
     return Scaffold(
       body: Column(
         children: <Widget>[

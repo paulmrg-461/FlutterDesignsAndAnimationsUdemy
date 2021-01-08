@@ -1,9 +1,12 @@
+import 'package:app_designs/src/pages/sneakers_app/helpers/helpers.dart';
 import 'package:app_designs/src/pages/sneakers_app/widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 
 class SneakerDescriptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    changeLightStatusBar();
+
     return Scaffold(
         body: Column(
       children: <Widget>[
