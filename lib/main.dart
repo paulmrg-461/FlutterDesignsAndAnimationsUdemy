@@ -1,4 +1,5 @@
 import 'package:app_designs/src/models/layout_model.dart';
+import 'package:app_designs/src/music_player/models/audio_player_model.dart';
 import 'package:app_designs/src/music_player/pages/music_player_page.dart';
 import 'package:app_designs/src/music_player/theme/theme.dart';
 import 'package:app_designs/src/pages/sneakers_app/models/sneaker_model.dart';
@@ -13,7 +14,8 @@ void main() => runApp(MultiProvider(providers: [
       ChangeNotifierProvider(
         create: (_) => LayoutModel(),
       ),
-      ChangeNotifierProvider(create: (_) => SneakerModel())
+      ChangeNotifierProvider(create: (_) => SneakerModel()),
+      ChangeNotifierProvider(create: (_) => AudioPlayerModel())
     ], child: MyApp()));
 
 class MyApp extends StatelessWidget {

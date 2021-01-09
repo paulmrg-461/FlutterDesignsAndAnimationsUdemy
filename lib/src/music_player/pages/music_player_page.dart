@@ -1,7 +1,10 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:app_designs/src/music_player/helpers/helpers.dart';
+import 'package:app_designs/src/music_player/models/audio_player_model.dart';
 import 'package:app_designs/src/music_player/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class MusicPlayerPage extends StatelessWidget {
   @override
@@ -78,7 +81,29 @@ class _ImageDiscAndDuration extends StatelessWidget {
   }
 }
 
-class _TitleAndActionButton extends StatelessWidget {
+class _TitleAndActionButton extends StatefulWidget {
+  @override
+  __TitleAndActionButtonState createState() => __TitleAndActionButtonState();
+}
+
+class __TitleAndActionButtonState extends State<_TitleAndActionButton>
+    with SingleTickerProviderStateMixin {
+  bool isPlaying = false;
+  AnimationController controller;
+
+  @override
+  void initState() {
+    controller = new AnimationController(
+        vsync: this, duration: Duration(milliseconds: 500));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,11 +114,24 @@ class _TitleAndActionButton extends StatelessWidget {
         children: [
           _SongTitle(),
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              final audioPlayerModel =
+                  Provider.of<AudioPlayerModel>(context, listen: false);
+
+              if (this.isPlaying) {
+                controller.reverse();
+                isPlaying = false;
+                audioPlayerModel.controller.stop();
+              } else {
+                controller.forward();
+                isPlaying = true;
+                audioPlayerModel.controller.repeat();
+              }
+            },
             backgroundColor: Color(0xffF8CB51),
-            child: FaIcon(
-              FontAwesomeIcons.play,
-              size: 16,
+            child: AnimatedIcon(
+              icon: AnimatedIcons.play_pause,
+              progress: controller,
             ),
           )
         ],
@@ -169,6 +207,7 @@ class _ProgressBar extends StatelessWidget {
 class _DiscImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final audioPlayermodel = Provider.of<AudioPlayerModel>(context);
     return Container(
       padding: EdgeInsets.all(18.0),
       width: 250.0,
@@ -178,9 +217,16 @@ class _DiscImage extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Image(
-              image: AssetImage('assets/aurora.jpg'),
-              fit: BoxFit.cover,
+            SpinPerfect(
+              duration: Duration(seconds: 10),
+              infinite: true,
+              manualTrigger: true,
+              controller: (controller) =>
+                  audioPlayermodel.controller = controller,
+              child: Image(
+                image: AssetImage('assets/aurora.jpg'),
+                fit: BoxFit.cover,
+              ),
             ),
             _CircularCenterDot(28, Colors.black38),
             _CircularCenterDot(20, Color(0xff1C1C25)),
