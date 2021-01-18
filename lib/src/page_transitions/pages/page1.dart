@@ -30,10 +30,13 @@ class Page1 extends StatelessWidget {
           final curvedAnimation =
               CurvedAnimation(parent: animation, curve: Curves.easeInOut);
 
-          return FadeTransition(
-            child: child,
-            opacity:
-                Tween<double>(begin: 0.0, end: 1.0).animate(curvedAnimation),
+          return RotationTransition(
+            child: FadeTransition(
+              child: child,
+              opacity:
+                  Tween<double>(begin: 0.0, end: 1.0).animate(curvedAnimation),
+            ),
+            turns: Tween<double>(begin: 0.0, end: 1.0).animate(curvedAnimation),
           );
         });
   }
