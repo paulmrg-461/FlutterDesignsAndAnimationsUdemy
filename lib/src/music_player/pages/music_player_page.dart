@@ -96,8 +96,8 @@ class __TitleAndActionButtonState extends State<_TitleAndActionButton>
 
   @override
   void initState() {
-    controller = new AnimationController(
-        vsync: this, duration: Duration(milliseconds: 500));
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     super.initState();
   }
 
@@ -110,8 +110,17 @@ class __TitleAndActionButtonState extends State<_TitleAndActionButton>
   void open() {
     final audioPlayerModel =
         Provider.of<AudioPlayerModel>(context, listen: false);
-
-    assetAudioPlayer.open(Audio('assets/Breaking-Benjamin-Far-Away.mp3'));
+    final audio = Audio(
+      'assets/Breaking-Benjamin-Far-Away.mp3',
+      metas: Metas(
+        title: "Rock",
+        artist: "Breaking Benjamin",
+        album: "Aurora",
+        image: MetasImage.network(
+            'https://s3-us-west-2.amazonaws.com/webstorage-bb/wp-content/uploads/2020/01/aurora_far_away_featured_image_BB.png'), //can be MetasImage.network
+      ),
+    );
+    assetAudioPlayer.open(audio, showNotification: true);
     assetAudioPlayer.currentPosition.listen((duration) {
       audioPlayerModel.currentTime = duration;
     });
@@ -138,11 +147,11 @@ class __TitleAndActionButtonState extends State<_TitleAndActionButton>
 
               if (this.isPlaying) {
                 controller.reverse();
-                isPlaying = false;
+                this.isPlaying = false;
                 audioPlayerModel.controller.stop();
               } else {
                 controller.forward();
-                isPlaying = true;
+                this.isPlaying = true;
                 audioPlayerModel.controller.repeat();
               }
 
@@ -248,10 +257,10 @@ class _DiscImage extends StatelessWidget {
           children: [
             SpinPerfect(
               duration: Duration(seconds: 10),
-              infinite: true,
               manualTrigger: true,
               controller: (controller) =>
                   audioPlayermodel.controller = controller,
+              infinite: true,
               child: Image(
                 image: AssetImage('assets/aurora.jpg'),
                 fit: BoxFit.cover,
